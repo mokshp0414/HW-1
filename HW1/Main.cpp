@@ -1,8 +1,8 @@
-include <iostream>
-include <iomanip>
-
-include #utility
-include #vector
+#pragma once 
+#include <iostream>
+#include <iomanip>
+#include <utility>
+#include <vector>
 
 #include "GroceryItem.hpp"
 
@@ -17,4 +17,22 @@ int main() {
                << " Double Chocolate Chunk Cookie Mix\", 17.19\n"
                << " Enter CTL-Z (Windows) or CTL-D (Linux) to quit\n";
 
+     std::vector<std::unique_ptr <GroceryItem>> shoppingCart;
+
+     GroceryItem a;
+
+     while (std::cout << "Enter UPC, Product Brand, Product Name and Price\n") 
+     std:: cin >> a;
+     {
+     
+     shoppingCart.push_back(std::make_unique<GroceryItem> (std::move(a)));
+     
+     std::cout << "Item added to shopping cart: " << shoppingCart.back() << "\n\n"; 
+
+     }
+     
+     std::cout << "\n\n Here is an itemized list of the items in your shopping car: \n";
+     for (unsigned long i = shoppingCart.size(); i-- > 0; ) std::cout << shoppingCart[i] << std::endl;
+
+     return 0;
 }

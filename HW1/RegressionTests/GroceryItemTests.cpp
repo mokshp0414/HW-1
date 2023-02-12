@@ -5,7 +5,7 @@
 #include <sstream>
 
 #include "CheckResults.hpp"
-#include "GroceryItem.hpp"
+#include "../GroceryItem.hpp"
 
 
 

@@ -36,7 +36,9 @@ namespace    // unnamed, anonymous namespace
       ///           else       return false;
       ///         do this instead:
       ///           return a < b;
+    
     return std::abs( lhs-rhs ) < EPSILON;
+    
     /////////////////////// END-TO-DO (1) ////////////////////////////
   }
 }    // unnamed, anonymous namespace
@@ -56,11 +58,12 @@ GroceryItem::GroceryItem( std::string productName, std::string brandName, std::s
 ///////////////////////// TO-DO (2) //////////////////////////////
 /// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
 
-_upcCode { std::move( upcCode ) },
-_brandName { std::move( brandName ) },
-_productName { std::move( productName ) },
-_price { price }
-{}
+: _upcCode { std::move( upcCode ) },
+  _brandName { std::move( brandName ) },
+  _productName { std::move( productName ) },
+  _price { price }
+            {}
+
 
 /////////////////////// END-TO-DO (2) ////////////////////////////
 
@@ -339,7 +342,7 @@ std::weak_ordering GroceryItem::operator<=>( const GroceryItem & rhs ) const noe
   return std::weak_ordering::less;
 
   else
-  return std:::weak_ordering::greater;
+  return std::weak_ordering::greater;
 
 
   /////////////////////// END-TO-DO (19) ////////////////////////////
@@ -396,22 +399,22 @@ std::istream & operator>>( std::istream & stream, GroceryItem & groceryItem )
     ///        1) https://en.cppreference.com/w/cpp/io/manip/quoted
     ///        2) https://www.youtube.com/watch?v=Mu-GUZuU31A
 
-  Item temp;
-  char a_comma = ' , ';
+    GroceryItem shoppingCart;
+    char a_comma = ',';
 
-  if (stream >> std::ws >> std::quoted( temp._upcCode ) && stream >> std::ws >> a_coma && a_comma == ' , ' &&
-      stream >> std::ws >> std::quoted( temp._brandName ) && stream >> std::ws >> a_coma && a_comma == ' , ' &&
-      stream >> std::ws >> std::quoted( temp._productName ) && stream >> std::ws >> a_coma && a_comma == ' , ' &&
-      stream >> std::ws >>              temp._price )
-  {
+    if (stream >> std::ws >> std::quoted( shoppingCart._upcCode ) && stream >> std::ws >> a_comma && a_comma == ',' &&
+        stream >> std::ws >> std::quoted( shoppingCart._brandName ) && stream >> std::ws >> a_comma && a_comma == ',' &&
+        stream >> std::ws >> std::quoted( shoppingCart._productName ) && stream >> std::ws >> a_comma && a_comma == ',' &&
+        stream >> std::ws >>              shoppingCart._price )
+    {
    
-    item = std::move( temp );
+    groceryItem = std::move( shoppingCart );
   
-  }
+    }
   
-  else stream.setstate( std::ios::failbit );
+    else stream.setstate( std::ios::failbit );
 
-return stream;
+  return stream;
 
   /////////////////////// END-TO-DO (21) ////////////////////////////
 }
@@ -429,18 +432,19 @@ std::ostream & operator<<( std::ostream & stream, const GroceryItem & groceryIte
     ///        1) https://en.cppreference.com/w/cpp/io/manip/quoted
     ///        2) https://www.youtube.com/watch?v=Mu-GUZuU31A
 
-    const std::string a_delimeter = " , ";
+    const std::string a_delimiter = " , ";
     
-    stream  << std::quoted( item.upcCode()) 
-            << a_delimeter
-            << std::quoted( item.brandName()) 
-            << a_delimeter
-            << std::quoted( item.productName()) 
-            << a_delimeter
-            << item.price();
+    stream  << std::quoted( groceryItem.upcCode()) 
+            << a_delimiter
+            << std::quoted( groceryItem.brandName()) 
+            << a_delimiter
+            << std::quoted( groceryItem.productName()) 
+            << a_delimiter
+            << groceryItem.price();
 
           
 
-  
+  return stream;
   /////////////////////// END-TO-DO (22) ////////////////////////////
 }
+
